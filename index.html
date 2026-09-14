@@ -3,221 +3,220 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Калькулятор вибірки AQL</title>
+  <title>AQL Калькулятор (Електроніка)</title>
   <style>
     :root {
-      --primary-color: #0052CC;
-      --bg-color: #F4F5F7;
-      --card-bg: #FFFFFF;
-      --text-color: #172B4D;
-      --border-color: #DFE1E6;
-      --success-color: #36B37E;
-      --danger-color: #FF5630;
+      --bg: #F4F5F7;
+      --card: #FFFFFF;
+      --text: #172B4D;
+      --border: #DFE1E6;
+      --blue: #0052CC;
+      --green: #22A06B;
+      --red: #CA3521;
+      --yellow: #B38600;
+      --yellow-bg: #FFFAE6;
+      --green-bg: #E3FCEF;
+      --red-bg: #FFEBE6;
     }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background-color: var(--bg-color);
-      color: var(--text-color);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
       margin: 0;
       padding: 16px;
-      box-sizing: border-box;
     }
 
     .container {
-      max-width: 550px;
+      max-width: 500px;
       margin: 0 auto;
-      background: var(--card-bg);
+      background: var(--card);
       border-radius: 8px;
       padding: 20px;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
     }
 
     h2 {
       margin-top: 0;
       font-size: 1.2rem;
-      color: var(--primary-color);
-      border-bottom: 2px solid var(--border-color);
-      padding-bottom: 8px;
+      color: var(--blue);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
     }
 
     .form-group {
-      margin-bottom: 14px;
+      margin-bottom: 16px;
     }
 
     label {
       display: block;
       font-weight: 600;
       margin-bottom: 6px;
-      font-size: 0.875rem;
+      font-size: 0.9rem;
     }
 
-    input, select {
+    input {
       width: 100%;
       padding: 10px;
-      border: 1px solid var(--border-color);
+      border: 1px solid var(--border);
       border-radius: 4px;
-      font-size: 1rem;
+      font-size: 1.1rem;
       box-sizing: border-box;
+      background-color: #FAFBFC;
     }
 
-    input:focus, select:focus {
+    input:focus {
       outline: none;
-      border-color: var(--primary-color);
+      border-color: var(--blue);
+      background-color: #FFF;
     }
 
-    .results-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
-      gap: 10px;
-      margin-top: 18px;
+    .step-box {
+      background: #DEEBFF;
+      border-left: 4px solid var(--blue);
+      padding: 12px;
+      margin-bottom: 20px;
+      border-radius: 0 4px 4px 0;
+      font-size: 1.1rem;
     }
 
-    .result-card {
-      background: var(--bg-color);
-      border: 1px solid var(--border-color);
+    .step-box strong {
+      font-size: 1.3rem;
+      color: var(--blue);
+    }
+
+    .result-box {
+      margin-top: 24px;
+      padding: 16px;
       border-radius: 6px;
-      padding: 10px;
       text-align: center;
+      font-size: 1.1rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      transition: all 0.3s ease;
     }
 
-    .result-card .label {
-      font-size: 0.75rem;
-      color: #5E6C84;
-      text-transform: uppercase;
-      font-weight: bold;
+    .result-box.success {
+      background: var(--green-bg);
+      border-color: var(--green);
+      color: #116F4A;
     }
 
-    .result-card .value {
-      font-size: 1.4rem;
-      font-weight: bold;
-      margin-top: 4px;
-      color: var(--text-color);
+    .result-box.danger {
+      background: var(--red-bg);
+      border-color: var(--red);
+      color: #97200D;
     }
 
-    .result-card.ac .value { color: var(--success-color); }
-    .result-card.re .value { color: var(--danger-color); }
+    .result-box.warning {
+      background: var(--yellow-bg);
+      border-color: var(--yellow);
+      color: #7F5F01;
+    }
 
-    .note {
-      font-size: 0.75rem;
-      color: #6B778C;
-      margin-top: 14px;
-      line-height: 1.4;
+    .result-box strong {
+      display: block;
+      font-size: 1.3rem;
+      margin-bottom: 6px;
+    }
+
+    .sub-text {
+      font-size: 0.85rem;
+      margin-top: 8px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
 
 <div class="container">
-  <h2>Калькулятор вибірки AQL (ISO 2859-1)</h2>
+  <h2>Контроль якості електроніки</h2>
   
   <div class="form-group">
-    <label for="lotSize">Обсяг партії (шт.):</label>
-    <input type="number" id="lotSize" value="1000" min="2" placeholder="Введіть розмір партії">
+    <label>Крок 1. Загальна кількість деталей в партії:</label>
+    <input type="number" id="lotSize" value="500" min="2">
+  </div>
+
+  <div class="step-box">
+    Відберіть для тестування: <strong id="sampleSize">32</strong> <strong>шт.</strong>
   </div>
 
   <div class="form-group">
-    <label for="aqlLevel">Рівень AQL (% допустимого браку):</label>
-    <select id="aqlLevel">
-      <option value="0.65">0.65 (Критичні дефекти)</option>
-      <option value="1.0">1.0</option>
-      <option value="1.5">1.5</option>
-      <option value="2.5" selected>2.5 (Значні дефекти / Стандарт)</option>
-      <option value="4.0">4.0 (Незначні дефекти)</option>
-    </select>
+    <label>Крок 2. Знайдено КРИТИЧНИХ дефектів (КЗ, не вмикається, димить):</label>
+    <input type="number" id="critDefects" value="0" min="0">
   </div>
 
-  <div class="results-grid">
-    <div class="result-card">
-      <div class="label">Буквений код</div>
-      <div class="value" id="codeLetter">-</div>
-    </div>
-    <div class="result-card">
-      <div class="label">Вибірка (шт)</div>
-      <div class="value" id="sampleSize">-</div>
-    </div>
-    <div class="result-card ac">
-      <div class="label">Прийняти (Ac)</div>
-      <div class="value" id="acValue">-</div>
-    </div>
-    <div class="result-card re">
-      <div class="label">Відхилити (Re)</div>
-      <div class="value" id="reValue">-</div>
-    </div>
+  <div class="form-group">
+    <label>Крок 3. Знайдено НЕКРИТИЧНИХ дефектів (подряпини, крива пайка):</label>
+    <input type="number" id="nonCritDefects" value="0" min="0">
   </div>
 
-  <div class="note">
-    * Розрахунок виконується за стандартом ISO 2859-1 (Загальний рівень контролю II, одноступенева звичайна інспекція). Враховано автоматичний перехід за стрілками для малих/великих обсягів вибірок.
+  <div id="resultBox" class="result-box">
+    Введіть дані для розрахунку рішення...
   </div>
 </div>
 
 <script>
-  const lotRanges = [
-    { min: 2, max: 8, code: 'A' },
-    { min: 9, max: 15, code: 'B' },
-    { min: 16, max: 25, code: 'C' },
-    { min: 26, max: 50, code: 'D' },
-    { min: 51, max: 90, code: 'E' },
-    { min: 91, max: 150, code: 'F' },
-    { min: 151, max: 280, code: 'G' },
-    { min: 281, max: 500, code: 'H' },
-    { min: 501, max: 1200, code: 'J' },
-    { min: 1201, max: 3200, code: 'K' },
-    { min: 3201, max: 10000, code: 'L' },
-    { min: 10001, max: 35000, code: 'M' },
-    { min: 35001, max: 150000, code: 'N' },
-    { min: 150001, max: 500000, code: 'P' },
-    { min: 500001, max: Infinity, code: 'Q' }
+  // Матриця ISO 2859-1 (Подвійна вибірка, нормальний контроль)
+  // Критичні дефекти: AQL 0 (будь-який дефект = брак)
+  // Некритичні дефекти: AQL 1.0 (стандарт для електроніки)
+  const planData = [
+    { min: 2, max: 50, n: 5, ac1: 0, re1: 2, ac2: 1 },
+    { min: 51, max: 90, n: 8, ac1: 0, re1: 2, ac2: 1 },
+    { min: 91, max: 150, n: 13, ac1: 0, re1: 2, ac2: 1 },
+    { min: 151, max: 280, n: 20, ac1: 0, re1: 3, ac2: 3 },
+    { min: 281, max: 500, n: 32, ac1: 0, re1: 3, ac2: 3 },
+    { min: 501, max: 1200, n: 50, ac1: 0, re1: 3, ac2: 3 },
+    { min: 1201, max: 3200, n: 80, ac1: 1, re1: 4, ac2: 4 },
+    { min: 3201, max: 10000, n: 125, ac1: 2, re1: 5, ac2: 6 },
+    { min: 10001, max: 35000, n: 200, ac1: 3, re1: 7, ac2: 8 },
+    { min: 35001, max: 150000, n: 315, ac1: 5, re1: 9, ac2: 12 }
   ];
 
-  // Матриця ISO 2859-1 (Level II Normal Single) з урахуванням правил стрілок
-  const aqlTables = {
-    'A': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 13 }, '1.5': { ac: 0, re: 1, size: 13 }, '2.5': { ac: 0, re: 1, size: 8 }, '4.0': { ac: 0, re: 1, size: 5 } },
-    'B': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 13 }, '1.5': { ac: 0, re: 1, size: 13 }, '2.5': { ac: 0, re: 1, size: 8 }, '4.0': { ac: 0, re: 1, size: 5 } },
-    'C': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 13 }, '1.5': { ac: 0, re: 1, size: 13 }, '2.5': { ac: 0, re: 1, size: 8 }, '4.0': { ac: 0, re: 1, size: 5 } },
-    'D': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 13 }, '1.5': { ac: 0, re: 1, size: 13 }, '2.5': { ac: 0, re: 1, size: 8 }, '4.0': { ac: 0, re: 1, size: 8 } },
-    'E': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 13 }, '1.5': { ac: 0, re: 1, size: 13 }, '2.5': { ac: 0, re: 1, size: 13 }, '4.0': { ac: 1, re: 2, size: 13 } },
-    'F': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 20 }, '1.5': { ac: 0, re: 1, size: 20 }, '2.5': { ac: 1, re: 2, size: 20 }, '4.0': { ac: 2, re: 3, size: 20 } },
-    'G': { '0.65': { ac: 0, re: 1, size: 32 }, '1.0': { ac: 0, re: 1, size: 32 }, '1.5': { ac: 1, re: 2, size: 32 }, '2.5': { ac: 2, re: 3, size: 32 }, '4.0': { ac: 3, re: 4, size: 32 } },
-    'H': { '0.65': { ac: 0, re: 1, size: 50 }, '1.0': { ac: 1, re: 2, size: 50 }, '1.5': { ac: 2, re: 3, size: 50 }, '2.5': { ac: 3, re: 4, size: 50 }, '4.0': { ac: 5, re: 6, size: 50 } },
-    'J': { '0.65': { ac: 1, re: 2, size: 80 }, '1.0': { ac: 2, re: 3, size: 80 }, '1.5': { ac: 3, re: 4, size: 80 }, '2.5': { ac: 5, re: 6, size: 80 }, '4.0': { ac: 7, re: 8, size: 80 } },
-    'K': { '0.65': { ac: 2, re: 3, size: 125 }, '1.0': { ac: 3, re: 4, size: 125 }, '1.5': { ac: 5, re: 6, size: 125 }, '2.5': { ac: 7, re: 8, size: 125 }, '4.0': { ac: 10, re: 11, size: 125 } },
-    'L': { '0.65': { ac: 3, re: 4, size: 200 }, '1.0': { ac: 5, re: 6, size: 200 }, '1.5': { ac: 7, re: 8, size: 200 }, '2.5': { ac: 10, re: 11, size: 200 }, '4.0': { ac: 14, re: 15, size: 200 } },
-    'M': { '0.65': { ac: 5, re: 6, size: 315 }, '1.0': { ac: 7, re: 8, size: 315 }, '1.5': { ac: 10, re: 11, size: 315 }, '2.5': { ac: 14, re: 15, size: 315 }, '4.0': { ac: 21, re: 22, size: 315 } },
-    'N': { '0.65': { ac: 7, re: 8, size: 500 }, '1.0': { ac: 10, re: 11, size: 500 }, '1.5': { ac: 14, re: 15, size: 500 }, '2.5': { ac: 21, re: 22, size: 500 }, '4.0': { ac: 21, re: 22, size: 500 } },
-    'P': { '0.65': { ac: 10, re: 11, size: 800 }, '1.0': { ac: 14, re: 15, size: 800 }, '1.5': { ac: 21, re: 22, size: 800 }, '2.5': { ac: 21, re: 22, size: 800 }, '4.0': { ac: 21, re: 22, size: 800 } },
-    'Q': { '0.65': { ac: 14, re: 15, size: 1250 }, '1.0': { ac: 21, re: 22, size: 1250 }, '1.5': { ac: 21, re: 22, size: 1250 }, '2.5': { ac: 21, re: 22, size: 1250 }, '4.0': { ac: 21, re: 22, size: 1250 } }
-  };
+  function calculateResult() {
+    const lotSize = parseInt(document.getElementById('lotSize').value) || 0;
+    const crit = parseInt(document.getElementById('critDefects').value) || 0;
+    const nonCrit = parseInt(document.getElementById('nonCritDefects').value) || 0;
+    
+    if (lotSize < 2) return;
 
-  function calculateAQL() {
-    const lotSizeInput = document.getElementById('lotSize').value;
-    const lotSize = parseInt(lotSizeInput, 10);
-    const aql = document.getElementById('aqlLevel').value;
+    // Шукаємо план для поточного розміру партії
+    const plan = planData.find(p => lotSize >= p.min && lotSize <= p.max) || planData[planData.length - 1];
+    
+    document.getElementById('sampleSize').innerText = plan.n;
+    const resBox = document.getElementById('resultBox');
 
-    if (isNaN(lotSize) || lotSize < 2) {
-      document.getElementById('codeLetter').textContent = '-';
-      document.getElementById('sampleSize').textContent = '-';
-      document.getElementById('acValue').textContent = '-';
-      document.getElementById('reValue').textContent = '-';
-      return;
+    // Логіка прийняття рішень
+    if (crit > 0) {
+      // Правило Zero Defect для критичних помилок
+      resBox.className = 'result-box danger';
+      resBox.innerHTML = '<strong>🚨 100% ПЕРЕВІРКА АБО БРАК</strong>Критичні дефекти не допускаються.';
+    } 
+    else if (nonCrit >= plan.re1) {
+      // Перевищено ліміт відхилення для 1-ї вибірки
+      resBox.className = 'result-box danger';
+      resBox.innerHTML = `<strong>🚨 100% ПЕРЕВІРКА АБО БРАК</strong>Забагато некритичних дефектів (ліміт першої вибірки: ${plan.re1-1}).`;
+    } 
+    else if (nonCrit <= plan.ac1) {
+      // В межах норми прийняття 1-ї вибірки
+      resBox.className = 'result-box success';
+      resBox.innerHTML = '<strong>✅ ПРИЙНЯТИ ПАРТІЮ</strong>Дефекти в межах норми (AQL 1.0).';
+    } 
+    else {
+      // Сіра зона (між Ac1 та Re1) -> Подвоєння вибірки
+      resBox.className = 'result-box warning';
+      resBox.innerHTML = `<strong>⚠️ ПОДВОЇТИ ВИБІРКУ</strong>Відберіть та перевірте ще <b>${plan.n} шт.</b><div class="sub-text">Якщо після другої перевірки сумарна кількість некритичних дефектів буде ${plan.ac2} або менше — прийняти. Якщо більше — забракувати.</div>`;
     }
-
-    const match = lotRanges.find(r => lotSize >= r.min && lotSize <= r.max);
-    if (!match) return;
-
-    const code = match.code;
-    const plan = aqlTables[code][aql];
-
-    document.getElementById('codeLetter').textContent = code;
-    document.getElementById('sampleSize').textContent = plan.size;
-    document.getElementById('acValue').textContent = plan.ac;
-    document.getElementById('reValue').textContent = plan.re;
   }
 
-  document.getElementById('lotSize').addEventListener('input', calculateAQL);
-  document.getElementById('aqlLevel').addEventListener('change', calculateAQL);
+  // Автоматичний перерахунок при введенні будь-яких даних
+  document.getElementById('lotSize').addEventListener('input', calculateResult);
+  document.getElementById('critDefects').addEventListener('input', calculateResult);
+  document.getElementById('nonCritDefects').addEventListener('input', calculateResult);
 
-  calculateAQL();
+  // Первинний запуск
+  calculateResult();
 </script>
 
 </body>
